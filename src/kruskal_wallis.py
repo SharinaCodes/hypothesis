@@ -13,7 +13,7 @@ DATA_PATH = "../data/subscription_dataset.csv"
 # -----------------------------
 def die(message, exc=None):
     print(message)
-    if exec is not None:
+    if exc is not None:
         print(exc)
     raise SystemExit(1)
 
