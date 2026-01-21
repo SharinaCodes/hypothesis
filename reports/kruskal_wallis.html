@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>anova</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>kruskal_wallis</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7517,7 +7517,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="ANOVA-Hypothesis-Testing">ANOVA Hypothesis Testing<a class="anchor-link" href="#ANOVA-Hypothesis-Testing">¶</a></h1><h2 id="Load-the-Data">Load the Data<a class="anchor-link" href="#Load-the-Data">¶</a></h2>
+<h1 id="Kruskal-Wallis-Hypothesis-Testing">Kruskal-Wallis Hypothesis Testing<a class="anchor-link" href="#Kruskal-Wallis-Hypothesis-Testing">¶</a></h1><h2 id="Load-the-Data">Load the Data<a class="anchor-link" href="#Load-the-Data">¶</a></h2>
 </div>
 </div>
 </div>
@@ -7526,17 +7526,16 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># import code</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">f_oneway</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
 
-<span class="n">DATA_PATH</span> <span class="o">=</span> <span class="s1">'subscription_dataset.csv'</span>
+<span class="n">DATA_PATH</span> <span class="o">=</span> <span class="s1">'../data/subscription_dataset.csv'</span>
 
 <span class="c1"># read file</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">)</span>
@@ -7555,7 +7554,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Loaded: subscription_dataset.csv
+<pre>Loaded: ../data/subscription_dataset.csv
 Shape: 1338 rows x 10 columns
 </pre>
 </div>
@@ -7578,7 +7577,7 @@ Shape: 1338 rows x 10 columns
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">dtypes</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
@@ -7644,7 +7643,7 @@ engagement_score         int64             49                                   
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># annual_spend_usd - histogram</span>
@@ -7691,15 +7690,15 @@ engagement_score         int64             49                                   
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Parametric-Statistical-Testing">Parametric Statistical Testing<a class="anchor-link" href="#Parametric-Statistical-Testing">¶</a></h2><h3 id="Business-question">Business question<a class="anchor-link" href="#Business-question">¶</a></h3><p>Does the mean amount of annual spending vary across market regions?</p>
+<h2 id="Nonparametric-Statistical-Testing">Nonparametric Statistical Testing<a class="anchor-link" href="#Nonparametric-Statistical-Testing">¶</a></h2><h3 id="Business-question">Business question<a class="anchor-link" href="#Business-question">¶</a></h3><p>Does median annual spending vary across market regions when comparing distributions without assuming normality?</p>
 <h3 id="Variables">Variables<a class="anchor-link" href="#Variables">¶</a></h3><ul>
 <li>Dependent (numeric): <code>annual_spend_usd</code></li>
 <li>Independent (categorical): <code>market_region</code></li>
 </ul>
-<h3 id="Testing-Method">Testing Method<a class="anchor-link" href="#Testing-Method">¶</a></h3><p>A one-way ANOVA test was selected because the outcome variable (<code>annual_spend_usd</code>) is numeric and the research question compares the mean annual spending across two or more independent groups defined by one categorical variable (<code>market_region</code>). An ANOVA is the standard way of testing the mean of a variable across one or more groups.</p>
+<h3 id="Testing-Method">Testing Method<a class="anchor-link" href="#Testing-Method">¶</a></h3><p>A Kruskal-Wallis test was selected because the data are right-skewed and the research question compares annual spending across three or more independent groups defined by a single categorical variable (market region). A Kruskal-Wallis test is the standard method for testing grouped, skewed data, as it ranks the data to reduce the impact of outliers.</p>
 <h3 id="Hypotheses">Hypotheses<a class="anchor-link" href="#Hypotheses">¶</a></h3><ul>
-<li>$H_0$: Mean annual spending is equal across market regions.</li>
-<li>$H_1$ : At least one market region's mean annual spending is different.</li>
+<li>$H_0$: Median annual spending is equal across market regions.</li>
+<li>$H_1$ : At least one market region's median annual spending is different.</li>
 </ul>
 <h3 id="ANOVA-Code">ANOVA Code<a class="anchor-link" href="#ANOVA-Code">¶</a></h3>
 </div>
@@ -7710,7 +7709,7 @@ engagement_score         int64             49                                   
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">coastal_south</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"market_region"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"coastal_south"</span><span class="p">,</span> <span class="s2">"annual_spend_usd"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -7718,10 +7717,9 @@ engagement_score         int64             49                                   
 <span class="n">inland_north</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"market_region"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"inland_north"</span><span class="p">,</span> <span class="s2">"annual_spend_usd"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="n">coastal_north</span><span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"market_region"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"coastal_north"</span><span class="p">,</span> <span class="s2">"annual_spend_usd"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
+<span class="n">result</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">kruskal</span><span class="p">(</span><span class="n">coastal_south</span><span class="p">,</span> <span class="n">inland_south</span><span class="p">,</span> <span class="n">inland_north</span><span class="p">,</span> <span class="n">coastal_north</span><span class="p">)</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">f_oneway</span><span class="p">(</span><span class="n">coastal_south</span><span class="p">,</span> <span class="n">inland_south</span><span class="p">,</span> <span class="n">inland_north</span><span class="p">,</span> <span class="n">coastal_north</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"One-Way ANOVA (annual spending by region)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Kruskal-Wallis (annual spending by market region)"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"statistic ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">statistic</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"pvalue ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">pvalue</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">()</span>
@@ -7737,9 +7735,9 @@ engagement_score         int64             49                                   
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>One-Way ANOVA (annual spending by region)
-statistic = 2.8308
-pvalue = 0.0373
+<pre>Kruskal-Wallis (annual spending by market region)
+statistic = 10.3203
+pvalue = 0.016
 
 </pre>
 </div>
@@ -7753,10 +7751,9 @@ pvalue = 0.0373
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Results">Results<a class="anchor-link" href="#Results">¶</a></h3><p>The ANOVA yielded an F-statistic of <code>2.8308</code> with a p-value of <code>0.0373</code>. Since 0.0373 &lt; 0.05, I reject the null hypothesis. There is statistically significant evidence that average annual spending differs by market region in this dataset.</p>
-<h3 id="Recommendations">Recommendations<a class="anchor-link" href="#Recommendations">¶</a></h3><p>Because average annual spending varies by market region, the organization should consider market region as a potential factor in annual spending variation and investigate the reasons for the differences in averages. The organization can examine combinations of other variables in the dataset (e.g. customer age and gender) to see if any patterns emerge when combined with the market region that might identify opportunities to upsell or to target marketing campaigns.</p>
-<h3 id="Limitations">Limitations<a class="anchor-link" href="#Limitations">¶</a></h3><p>One major limitation of this test is that ANOVA usually assumes normally distributed data. The data in this dataset are righ-skewed. Although ANOVA is the preferred testing method ofr data with three or more groups, further testing is needed in this case, as not all assumptions of the test have been met.</p>
-<p>Another limitation is that the test does not identify which market region or regions differ from the others. Further analysis is needed to determine which regions have lower-than-average means.</p>
+<h3 id="Results">Results<a class="anchor-link" href="#Results">¶</a></h3><p>The Kruskal-Wallis test yielded an H-statistic of <code>10.3203</code> with a p-value of <code>0.016</code>. Since <code>0.016 &lt; 0.05</code>, I fail to rejecgt the null hypothesis. There is no statistically significant evidence that median annual spending differs by market region in this dataset.</p>
+<h3 id="Recommendations">Recommendations<a class="anchor-link" href="#Recommendations">¶</a></h3><p>Since median annual spending does not differ significantly by region, the organization should refrain from assuming that typical annual spending has a regional component. Instead, the organization should treat regional differences from the ANOVA as potentially driven by a small number of outliers, and focus on identifying the factors that lead to higher spending.</p>
+<h3 id="Limitations">Limitations<a class="anchor-link" href="#Limitations">¶</a></h3><p>While the analysis evaluates whether medians differ by market region, ti does not explain the reasons behind higher annual spending. Additionally, the analysis does not factor in other variables in the dataset.</p>
 </div>
 </div>
 </div>
