@@ -1,11 +1,12 @@
-# Digital Services Subscription — ANOVA & Kruskal–Wallis
+# Hypothesis Testing
+##  ANOVA & Kruskal–Wallis (Digital Services Subscription)
 
 This project analyzes a digital services subscription dataset using:
 
-* **One-way ANOVA** (parametric) via `scipy.stats.f_oneway`
-* **Kruskal–Wallis** (nonparametric) via `scipy.stats`
+* **One-way ANOVA** (parametric) 
+* **Kruskal–Wallis** (nonparametric) 
 
-Notebooks contain the exploratory/visual workflow, scripts in `src/` are for repeatable runs, and `reports/` contains HTML exports.
+The goal is to compare groups (based on a categorical feature) to determine whether there are statistically significant differences in a numeric outcome.
 
 ## Project Structure
 
